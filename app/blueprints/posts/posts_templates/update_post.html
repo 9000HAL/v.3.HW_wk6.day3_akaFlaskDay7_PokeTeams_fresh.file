@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Update Your Post
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Update Your Post!</h1>
+<div class="container w-25" id="form-container">
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.img_url.label }}
+                {{ form.img_url(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.title.label }}
+            {{ form.title(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.caption.label }}
+            {{ form.caption(class="form-control") }}
+            <!--<div id="emailHelp" class="form-text">Thank You For Updating Your Post!</div>--->
+        </div>
+        {{ form.submit_btn(class="btn btn-primary d-block mx-auto", value='Update Post') }}
+      </form>
+</div>
+{% endblock %}
+
