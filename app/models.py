@@ -58,7 +58,8 @@ class Pokemon(db.Model):
     __tablename__ = 'pokemon'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    image_url = db.Column(db.String(500))
+    img_url = db.Column(db.String(500))
+    
 
     # User relation through association table
     users = db.relationship('User', secondary=user_pokemon, back_populates='pokemons')
@@ -66,7 +67,8 @@ class Pokemon(db.Model):
 # Post model
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    img_url = db.Column(db.String)
+    img_url = db.Column(db.String(500))
+    #img_url = db.Column(db.String)
     title = db.Column(db.String(30))
     caption = db.Column(db.String(30))
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
