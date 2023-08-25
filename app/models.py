@@ -2,25 +2,23 @@ from app import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash
+#from flask_sqlalchemy import SQLAlchemy
+
+#db = SQLAlchemy()
 
 
-
-
+# Association table between followers and followed
 followers_followed = db.Table(
     'followers_followed',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
 
-
-
 # Association table between User and Pokemon
-user_pokemon = db.Table('user_pokemon',
+user_pokemon = db.Table('user_pokemon',           ######TABLE###################################################
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
     db.Column('pokemon_id', db.Integer, db.ForeignKey('pokemon.id'), primary_key=True)
 )
-
-
 
 # User model
 class User(UserMixin, db.Model):
@@ -28,21 +26,21 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
-    password_hash = db.Column(db.String, nullable=False) 
+    password_hash = db.Column(db.String, nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
+    
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     followed = db.relationship('User',
-    secondary = followers_followed,
-    primaryjoin = (followers_followed.columns.follower_id == id),
-    secondaryjoin = (followers_followed.columns.followed_id == id),
-    backref = db.backref('followers_followed', lazy='dynamic'),
-    lazy='dynamic'
-    )
+                               secondary=followers_followed,
+                               primaryjoin=(followers_followed.c.follower_id == id),
+                               secondaryjoin=(followers_followed.c.followed_id == id),
+                               backref=db.backref('followers_followed', lazy='dynamic'),
+                               lazy='dynamic')
     
     # Relation to Pokemon model
     pokemons = db.relationship('Pokemon', secondary=user_pokemon, back_populates='users')
     
-    #hashes our password when a user signs up
+    # Hashes our password when a user signs up
     def hash_password(self, signup_password):
         return generate_password_hash(signup_password)
     
@@ -55,20 +53,51 @@ class User(UserMixin, db.Model):
 
 # Pokemon model
 class Pokemon(db.Model):
-    __tablename__ = 'pokemon'
+    __tablename__ = 'pokemon'                        ######TABLE###################################################
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False, unique=True)
     img_url = db.Column(db.String(500))
     
-
     # User relation through association table
     users = db.relationship('User', secondary=user_pokemon, back_populates='pokemons')
+
+# CRUD utility functions
+def add_pokemon(name, img_url):
+    new_pokemon = Pokemon(name=name, img_url=img_url)
+    db.session.add(new_pokemon)
+    db.session.commit()
+    return new_pokemon
+
+def get_pokemon_by_name(name):
+    return Pokemon.query.filter_by(name=name).first()
+
+def add_pokemon_to_user(user_id, pokemon_name):
+    user = User.query.get(user_id)
+    pokemon = get_pokemon_by_name(pokemon_name)
+    if user and pokemon:
+        user.pokemons.append(pokemon)
+        db.session.commit()
+
+def remove_pokemon_from_user(user_id, pokemon_name):
+    user = User.query.get(user_id)
+    pokemon = get_pokemon_by_name(pokemon_name)
+    if user and pokemon:
+        user.pokemons.remove(pokemon)
+        db.session.commit()
+
+def list_user_pokemons(user_id):
+    user = User.query.get(user_id)
+    if user:
+        return user.pokemons
+    return []
+
+def list_all_pokemon():
+    return Pokemon.query.all()
 
 # Post model
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     img_url = db.Column(db.String(500))
-    #img_url = db.Column(db.String)
     title = db.Column(db.String(30))
     caption = db.Column(db.String(30))
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
@@ -80,21 +109,9 @@ class Post(db.Model):
         self.caption = post_data['caption']
         self.user_id = post_data['user_id']
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
-
-
-
-
-
-
-
-
-
-
-
 
 
 
