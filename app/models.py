@@ -51,10 +51,14 @@ class User(UserMixin, db.Model):
         self.email = user_data['email']
         self.password_hash = self.hash_password(user_data['password'])
 
+
+
+
+
 # Pokemon model
 class Pokemon(db.Model):
     __tablename__ = 'pokemon'                        ######TABLE###################################################
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(100), nullable=False, unique=True)
     img_url = db.Column(db.String(500))
     

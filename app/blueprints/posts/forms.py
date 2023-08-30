@@ -15,3 +15,6 @@ class PostForm(FlaskForm):
     title = StringField('Title: ', validators=[DataRequired()])
     caption = StringField('Caption: ', validators=[DataRequired()])
     submit_btn = SubmitField('Process Post')
+
+##############################################################################################################
+
