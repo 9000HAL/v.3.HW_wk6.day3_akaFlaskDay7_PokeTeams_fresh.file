@@ -2,7 +2,7 @@ from wtforms import StringField, SubmitField,PasswordField,EmailField, HiddenFie
 from wtforms.validators import DataRequired
 from flask_wtf import FlaskForm
 
-class PokemonSelector(FlaskForm):
+class PokemonSelect(FlaskForm):
     pokemon_name = StringField('Pokemon Name', validators=[DataRequired()])
     search_btn = SubmitField('Search', validators=[DataRequired()])
     pokemon_ability = HiddenField('Pokemon Ability')
@@ -20,6 +20,79 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
     register_btn = SubmitField('Register', validators=[DataRequired()])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

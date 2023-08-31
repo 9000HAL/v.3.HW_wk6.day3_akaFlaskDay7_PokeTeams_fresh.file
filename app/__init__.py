@@ -1,5 +1,145 @@
 from flask import Flask
 from config import Config
+from flask_login import LoginManager, current_user
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+
+
+login_manager = LoginManager()
+db = SQLAlchemy()
+migrate =Migrate()
+
+
+
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
+
+    login_manager.init_app(app)
+    db.init_app(app)
+    migrate.init_app(app,db)
+
+    from app.blueprints.home import home
+    from app.blueprints.pokemon_select import pokemon_select
+    from app.blueprints.auth import auth
+    from app.blueprints.pokemon_team import pokemon_team
+    from app.blueprints.pokemon_catch import pokemon_catch
+    from app.blueprints.pokemon_release import pokemon_release
+
+
+    
+    app.register_blueprint(pokemon_catch)
+    app.register_blueprint(home)
+    app.register_blueprint(pokemon_select)
+    app.register_blueprint(auth)
+    app.register_blueprint(pokemon_team)
+    app.register_blueprint(pokemon_release)
+
+    return app  
+    
+from app import models
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+
+from flask import Flask
+from config import Config
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -48,3 +188,4 @@ def create_app():
 from app import routes, models      #----dk fix 37:55 rec'g
 
 
+"""

@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-pokemon_selector = Blueprint('pokemon_selector',__name__)
+pokemon_select = Blueprint('pokemon_select',__name__)
 
-from .import routes
+from . import routes
 

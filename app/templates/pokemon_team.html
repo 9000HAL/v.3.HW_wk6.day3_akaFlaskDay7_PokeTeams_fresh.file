@@ -28,7 +28,7 @@
                     <td style="text-align: center">{{ pokemon.ability }}</td>
                     <td style="text-align: center">{{ pokemon.base_exp }}</td>
                     <td style="text-align: center">
-                        <form method="POST" action="{{ url_for('release_pokemon.release_pokemon', pokemon_id=pokemon.id) }}">
+                        <form method="POST" action="{{ url_for('pokemon_release.pokemon_release', pokemon_id=pokemon.id) }}">
                             <button type="submit" class="btn btn-danger">Release</button>
                         </form>
                     </td>

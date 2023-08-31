@@ -1,13 +1,13 @@
 from flask import request, render_template, url_for, flash, redirect
 from flask_login import login_required, current_user
-from .import pokemon_catcher
+from .import pokemon_catch
 import requests
-from app.blueprints.auth.forms import PokemonSelector
+from app.blueprints.auth.forms import PokemonSelect
 from app.models import PokemonTeam
 from app import db
 
 
-@pokemon_catcher.route('/catch_pokemon', methods=['POST'])
+@pokemon_catch.route('/catch_pokemon', methods=['POST'])
 @login_required
 def catch_pokemon():
     if request.method == 'POST' and request.form.get('pokemon_name'):
@@ -20,7 +20,7 @@ def catch_pokemon():
         team_count = PokemonTeam.query.filter_by(user_id=current_user.id).count()
         if team_count >= 5:
             flash('Your team is already full! You cannot catch more Pokémon.')
-            return redirect(url_for('show_pokemon_team.show_pokemon_team'))
+            return redirect(url_for('pokemon_team.pokemon_team'))
 
         existing_pokemon = PokemonTeam.query.filter_by(name=pokemon_name).first()
 
@@ -42,4 +42,4 @@ def catch_pokemon():
             db.session.commit()
             flash('Successfully added Pokemon to Team')
 
-    return redirect(url_for('show_pokemon_team.show_pokemon_team'))
+    return redirect(url_for('pokemon_team.pokemon_team'))

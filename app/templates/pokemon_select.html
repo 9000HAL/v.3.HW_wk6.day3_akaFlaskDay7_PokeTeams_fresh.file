@@ -1,7 +1,7 @@
 {% extends 'home.html' %}
 
 {% block title %}
-    <title>Pokemon Selector</title>
+    <title>Pokemon Select</title>
 {% endblock %}
 
 {% block content %}
@@ -35,7 +35,7 @@
               <div class="card-block">
                   <h4 class="card-title">{{pokemon_name}}<small>Base EXP-{{pokemon_base_exp}}    Attack- {{pokemon_attack}}    Defense-{{pokemon_defense}}</small></h4>
                   <p class="card-text"><strong>Pokemon Ability: {{pokemon_ability}}</strong></p>
-                  <form method="POST" action="{{ url_for('pokemon_catcher.catch_pokemon') }}">
+                  <form method="POST" action="{{ url_for('pokemon_catch.catch_pokemon') }}">
                     <input type="hidden" name="pokemon_name" value="{{ pokemon }}">
                     <input type="hidden" name="pokemon_ability" value="{{ pokemon_ability }}">
                     <input type="hidden" name="pokemon_base_exp" value="{{ pokemon_base_exp }}">

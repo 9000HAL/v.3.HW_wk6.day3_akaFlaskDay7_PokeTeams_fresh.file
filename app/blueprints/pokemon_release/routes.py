@@ -2,12 +2,12 @@ from flask import Blueprint, redirect, url_for, flash,render_template
 from flask_login import login_required
 from app.models import PokemonTeam
 from app import db
-from . import release_pokemon
+from . import pokemon_release
 
-@release_pokemon.route('/release_pokemon/<int:pokemon_id>', methods=['POST', 'GET'])
+@pokemon_release.route('/pokemon_release/<int:pokemon_id>', methods=['POST', 'GET'])
 
 @login_required
-def release_pokemon(pokemon_id):
+def pokemon_release(pokemon_id):
     pokemon = PokemonTeam.query.get(pokemon_id)
     if "POST":
         db.session.delete(pokemon)
@@ -18,4 +18,4 @@ def release_pokemon(pokemon_id):
         flash(f"You can't release a Pokemon you haven't caught!")
         render_template('pokemon_team.html')
 
-    return redirect(url_for('show_pokemon_team.show_pokemon_team'))
+    return redirect(url_for('pokemon_team.pokemon_team'))

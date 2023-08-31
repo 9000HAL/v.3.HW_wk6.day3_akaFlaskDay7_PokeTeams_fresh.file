@@ -1,16 +1,16 @@
 from flask import request, render_template, url_for, flash, redirect
 from flask_login import login_required, current_user
-from .import pokemon_selector
+from . import pokemon_select
 import requests
-from app.blueprints.auth.forms import PokemonSelector
+from app.blueprints.auth.forms import PokemonSelect
 from app.models import PokemonTeam
 from app import db
 
-@pokemon_selector.route('/pokemon_selector', methods=['GET', 'POST'])
+@pokemon_select.route('/pokemon_select', methods=['GET', 'POST'])
 @login_required
-def pokemon_selector():
+def pokemon_select():
     
-    form = PokemonSelector()
+    form = PokemonSelect()
 
     if request.method == 'POST' and form.pokemon_name.data:
         
@@ -39,9 +39,9 @@ def pokemon_selector():
             form.pokemon_base_exp.data = pokemon_base_exp
             form.pokemon_sprite.data = pokemon_sprites
 
-            return render_template('pokemon_selector.html', pokemon_data=pokemon_data, pokemon=pokemon, pokemon_ability=pokemon_ability, pokemon_base_exp=pokemon_base_exp, pokemon_sprites=pokemon_sprites, pokemon_hp=pokemon_hp, pokemon_defense=pokemon_defense, pokemon_attack=pokemon_attack, form=form )
+            return render_template('pokemon_select.html', pokemon_data=pokemon_data, pokemon=pokemon, pokemon_ability=pokemon_ability, pokemon_base_exp=pokemon_base_exp, pokemon_sprites=pokemon_sprites, pokemon_hp=pokemon_hp, pokemon_defense=pokemon_defense, pokemon_attack=pokemon_attack, form=form )
         else:
             flash('Invalid Pokemon')
-            return render_template('pokemon_selector.html')
+            return render_template('pokemon_select.html')
 
-    return render_template('pokemon_selector.html', form=form)
+    return render_template('pokemon_select.html', form=form)
