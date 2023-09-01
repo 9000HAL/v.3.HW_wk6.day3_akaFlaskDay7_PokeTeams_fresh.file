@@ -19,7 +19,7 @@ def catch_pokemon():
         
         team_count = PokemonTeam.query.filter_by(user_id=current_user.id).count()
         if team_count >= 5:
-            flash('Your team is already full! You cannot catch more Pokémon.')
+            flash('Your Pokemon Team is full! You cannot catch more Pokémon until you reduce your current team.')
             return redirect(url_for('pokemon_team.pokemon_team'))
 
         existing_pokemon = PokemonTeam.query.filter_by(name=pokemon_name).first()
@@ -29,7 +29,7 @@ def catch_pokemon():
             existing_pokemon.base_exp = pokemon_base_exp
             existing_pokemon.sprite = pokemon_sprite
             db.session.commit()
-            flash('Pokemon data updated')
+            flash('Pokemon team updated')
         else:
             pokemon_data = PokemonTeam(
                 name=pokemon_name,
@@ -40,6 +40,6 @@ def catch_pokemon():
             )
             db.session.add(pokemon_data)
             db.session.commit()
-            flash('Successfully added Pokemon to Team')
+            flash('Pokemon has been added to your Team')
 
     return redirect(url_for('pokemon_team.pokemon_team'))

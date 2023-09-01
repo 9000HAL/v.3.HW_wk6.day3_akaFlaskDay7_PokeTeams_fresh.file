@@ -1,5 +1,9 @@
 body {
-    background-color: teal;
+    background-color: aquamarine;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: x-large;
+    
 }
 
 #form-container {

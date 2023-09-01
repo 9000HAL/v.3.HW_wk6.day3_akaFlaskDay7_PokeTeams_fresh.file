@@ -41,7 +41,7 @@ def pokemon_select():
 
             return render_template('pokemon_select.html', pokemon_data=pokemon_data, pokemon=pokemon, pokemon_ability=pokemon_ability, pokemon_base_exp=pokemon_base_exp, pokemon_sprites=pokemon_sprites, pokemon_hp=pokemon_hp, pokemon_defense=pokemon_defense, pokemon_attack=pokemon_attack, form=form )
         else:
-            flash('Invalid Pokemon')
+            flash('Pokemon not valid for this')
             return render_template('pokemon_select.html')
 
     return render_template('pokemon_select.html', form=form)

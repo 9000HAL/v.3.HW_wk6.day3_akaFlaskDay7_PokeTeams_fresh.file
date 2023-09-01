@@ -1,4 +1,4 @@
-"""Routes for core Flask app.
+"""Routes for core Flask app ------> MOVED TO BLUEPRINTS **********************************************************************************************************
 
 
 from flask import request, render_template, redirect, url_for, flash

@@ -13,9 +13,9 @@ def pokemon_release(pokemon_id):
         db.session.delete(pokemon)
         db.session.commit()
 
-        flash(f"You've released {pokemon.name} back into the wild!")
+        flash(f"You have released {pokemon.name} from your Team!")
     else:
-        flash(f"You can't release a Pokemon you haven't caught!")
+        flash(f"You can't release a Pokemon you haven't caught yet!")
         render_template('pokemon_team.html')
 
     return redirect(url_for('pokemon_team.pokemon_team'))

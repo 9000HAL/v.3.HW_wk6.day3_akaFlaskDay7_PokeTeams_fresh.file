@@ -20,7 +20,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="static/images/favicon-16x16.png" />
     <link rel="manifest" href="static/images/site.webmanifest" />
     {% block title %}
-    <title>Home</title>
+    <title>Main Page</title>
     {% endblock %}
   </head>
   <body class="background">
@@ -43,22 +43,19 @@
             <div class="nav-item active">
               <p>{{current_user.username}}</p>
               <a class="nav-link" href="{{url_for('auth.signout')}}"
-                >Sign Out <span class="sr-only"></span
+                >Log Out <span class="sr-only"></span
               ></a>
             </div>
             <div class="nav-item active">
-              <a class="nav-link" href="{{ url_for('pokemon_team.pokemon_team') }}">Pokemon Team</a>
+              <a class="nav-link" href="{{ url_for('pokemon_team.pokemon_team') }}">Your Pokemon Team</a>
             </div>
             {%endif%}
             <div class="nav-item active">
-              <a class="nav-link" href="{{url_for('home.home')}}"
-                >Home <span class="sr-only"></span
-              ></a>
+              <a class="nav-link" href="{{url_for('home.home')}}">Main Page<span class="sr-only"></span></a>
             </div>
             <div class="nav-item">
               <a class="nav-link" href="{{url_for('pokemon_select.pokemon_select')}}"
-                >Pokemon select</a
-              >
+                >Pokemon Select Tool</a>
             </div>
             <div class="nav-item">
               <a class="nav-link" href="{{url_for('auth.login')}}">Log In</a>
@@ -82,11 +79,11 @@
     <div class="container">
       {% block content %}
       <div>
-        <h1>Welcome to Pokemon Card Select!</h1>
+        <h1>***** Welcome to Pokemon Card Select ******</h1>
         <br />
         <p>
-          Go to the main page and type in a pokemon to see pokemon ability, base
-          exp, and a sprite image
+          Go to Main Page -> Type in a Pokemon to see -> Pokemon Ability, Base
+          Exp, and a Sprite Image!
         </p>
       </div>
       {% endblock %}
